@@ -55,3 +55,43 @@ sr.reveal('.home__data, .about__img, .skills__subtitle, .skills__text',{});
 sr.reveal('.home__img, .about__subtitle, .about__text, .skills__img',{delay: 400}); 
 sr.reveal('.home__social-icon',{ interval: 200}); 
 sr.reveal('.skills__data, .work__img',{interval: 200}); 
+
+
+
+// Typewriter Effect
+
+const words = ["Possibilities","Future..."];
+const typewriterText = document.getElementById("typewriter-text");
+
+function typeWriterEffect(){
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    function type(){
+        let currentWord = words[wordIndex];
+        if(!isDeleting){
+            typewriterText.textContent += currentWord[charIndex];
+            charIndex++;
+            if(charIndex === currentWord.length){
+                if(wordIndex === words.length - 1){
+                    return;
+                }
+                isDeleting = true;
+                setTimeout(type,1000);
+                return;
+            }
+        }
+        else{
+            typewriterText.textContent = currentWord.slice(0,charIndex - 1);
+            charIndex--;
+            if(charIndex === 0){
+                isDeleting = false;
+                wordIndex++;
+            }
+        }
+        const delay = isDeleting ? 50 : 100;
+        setTimeout(type,delay);
+    }
+    type();
+}
+window.addEventListener("load",typeWriterEffect);
